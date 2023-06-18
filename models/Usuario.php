@@ -8,8 +8,8 @@ class Usuario
     private $conexion; // Objeto de conexión a la base de datos
     
     
-	public function __construct()
-    {
+	public function __construct(){
+
         // Inicializar la conexión a la base de datos
 		$this->conexion = Conectarse();
         //$this->conexion = new mysqli("localhost", "usuario", "contraseña", "nombre_basedatos");
@@ -18,11 +18,19 @@ class Usuario
         if ($this->conexion->connect_error) {
             die("Error de conexión: " . $this->conexion->connect_error);
         }
+
+    }
+    
+    public function __destruct(){
+
+        // Cerrar la conexión a la base de datos al finalizar
+        CerrarConexion($this->conexion);
+
     }
 	
     
-    public function altaUsuario($user, $contrasena, $nombre, $imagen)
-    {
+    public function altaUsuario($user, $contrasena, $nombre, $imagen){
+
         // Escapar los valores para prevenir inyección de SQL
 		$user = $this->conexion->real_escape_string($user);
 		$contrasena = $this->conexion->real_escape_string($contrasena);
@@ -41,12 +49,16 @@ class Usuario
         } else {
             echo "Error al guardar el usuario: " . $this->conexion->error;
         }
+
     }
     
-    public function __destruct()
-    {
-        // Cerrar la conexión a la base de datos al finalizar
-        CerrarConexion($this->conexion);
+    public function perfilUsuario($user){
+        // Se construye la query
+        $sql = "SELECT Usuario, Nombre, Imagen FROM usuarios WHERE idusuario = '$user'";
+         // Ejecuta la query
+        $perfil = $this->conexion->query($sql);
+        $datos = $perfil->fetch_all(MYSQLI_ASSOC);
+        return $datos;
     }
 }
 

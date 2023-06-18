@@ -17,5 +17,10 @@
 		<label><i>*Opcional, link a imagen en formato jpg o png.</i></label><br><br>
         <input type="submit" value="Guardar">
     </form>
+
+    <h1>Ver Usuario</h1>
+    <form action="../controllers/UsuarioController.php?action=verperfil" method="POST">
+        <input type="submit" value="Ver">
+    </form>
 </body>
 </html>
