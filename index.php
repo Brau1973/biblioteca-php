@@ -1,23 +1,26 @@
 <?php
-// Punto de entrada de la aplicación
-// Aquí puedes realizar el enrutamiento a los controladores correspondientes
+require_once "modelos/basededatos.php";
 
-// Ejemplo de enrutamiento para el alta de libro
-// Verificar si la clave "action" está definida antes de acceder a ella
-if (isset($_GET['action'])) {
-  $action = $_GET['action'];
-  if ($action === 'alta_libro') {
-    require_once 'controllers/LibroController.php';
-    $libroController = new LibroController();
-    $libroController->altaLibro();
-  }
-  // Resto de tu código para manejar la acción
-} else {
-  // Acción por defecto si no se proporciona ninguna
-  $action = 'default';
+// Info en link
+// c = controlador
+// a = action
+if(!isset($_GET['c'])){
+    require_once "controladores/inicio.controlador.php";
+    $controlador = new InicioControlador();
+    // call_user_func llama a un metodo especifico de un objeto dado
+    // en este caso el objto es el controlador y el metodo es inicio
+    call_user_func(array($controlador,"Inicio"));
+}else{
+    $controlador = $_GET['c']; 
+    require_once "controladores/$controlador.controlador.php";
+
+    //Pone en mayus la primera letra de cada palabra
+    //en el string dentro de la variable
+    $controlador = ucwords($controlador)."Controlador"; 
+    
+    $controlador = new $controlador;
+    // si la action esta seteada la tomo sino asumo Inicio como action
+    $accion = isset($_GET['a']) ? $_GET['a'] : "Inicio";
+    call_user_func(array($controlador,$accion));
 }
-
-// Resto de tu código aquí
 ?>
-
-
