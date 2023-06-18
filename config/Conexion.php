@@ -1,21 +1,51 @@
 <?php
 // Datos de conexión a la base de datos
-$host = 'localhost';
-$usuario = 'root';
-$contraseña = 'root';
-$base_datos = 'biblioteca';
 
-// Crear la conexión
-$conexion = new mysqli($host, $usuario, $contraseña, $base_datos);
-
-// Verificar la conexión
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+function Conectarse(){
+	$host = 'localhost';
+	$usuario = 'root';
+	$contraseña = 'seba1234';
+	$base_datos = 'biblioteca';
+	$link = mysqli_connect($host, $usuario, $contraseña, $base_datos);
+	if ($link->connect_error) {
+			die("Error de conexión: " . $conexion->connect_error);
+		}
+	return $link;
 }
 
-// Establecer el juego de caracteres UTF-8
-$conexion->set_charset("utf8");
+function CerrarConexion($link){
+	mysqli_close($link);
+}
 
-// Código adicional para configurar la conexión según tus necesidades
+/*
+class Conexion{
+	private $conexion = NULL;
+	
+	private function __construct() {
+		$this->conexion = new mysqli($host, $usuario, $contraseña, $base_datos);
+		
+		if ($conexion->connect_error) {
+			die("Error de conexión: " . $conexion->connect_error);
+		}
+	}
+	
+	
+	public getConexion(){
+		if ($conexion != NULL){
+			return $this->conexion();
+		}else{
+			$conexion = new Conexion();
+			return $this->conexion;
+		}
+	}
+	
+	public cerrarConexion(){
+		$this->conexion
+	}
+}
+
+function obtenerConexion(){
+	return $conexion;
+}*/
 
 ?>
