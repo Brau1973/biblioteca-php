@@ -4,8 +4,8 @@ class BasedeDatos{
 
     const servidor="localhost";
     const usuariobd="root";
-    const clave="root";
-    const nombrebd="proyectomvc";
+    const clave="";
+    const nombrebd="biblioteca";
 
     public static function Conectar(){
         try{
@@ -19,6 +19,5 @@ class BasedeDatos{
         }
 
     }
-
 
 }
