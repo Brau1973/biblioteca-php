@@ -60,6 +60,33 @@ class Usuario
         $datos = $perfil->fetch_all(MYSQLI_ASSOC);
         return $datos;
     }
+
+    public function editarUsuario($user){
+        // Se construye la query
+        $sql = "SELECT Usuario, Contrasena, Nombre, Imagen FROM usuarios WHERE idusuario = '$user'";
+         // Ejecuta la query
+        $perfil = $this->conexion->query($sql);
+        $datos = $perfil->fetch_all(MYSQLI_ASSOC);
+        return $datos;
+    }
+
+    public function confirmarEditar($user, $contrasena, $nombre, $imagen){
+        if ($imagen!=""){
+            $sql = "UPDATE usuarios SET Contrasena = '$contrasena', Nombre = '$nombre', Imagen = '$imagen' WHERE IdUsuario='$user'";
+            if ($this->conexion->query($sql) === TRUE) {
+                echo "Datos modificados exitosamente";	//Esto se podría guardar como un dato de Session para ponerlo en un lugar particular del index o del form de registro
+            } else {
+                echo "Error al guardar los datos: " . $this->conexion->error;
+            }
+        }else {
+            $sql = "UPDATE usuarios SET Contrasena = '$contrasena', Nombre = '$nombre' WHERE IdUsuario='$user'";
+            if ($this->conexion->query($sql) === TRUE) {
+                echo "Datos modificados exitosamente";	//Esto se podría guardar como un dato de Session para ponerlo en un lugar particular del index o del form de registro
+            } else {
+                echo "Error al guardar los datos: " . $this->conexion->error;
+            }
+        }
+    }
 }
 
 

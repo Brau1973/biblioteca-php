@@ -54,20 +54,63 @@ if ($action === 'verperfil'){
 	}*/
 	//Cierra la conexión
 	unset($UsuarioModel);
+	//Redirecciona al view con los datos del perfil
 	require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/views/VerPerfil.php';
 }
 
 
+if ($action === 'editar'){
+	$user = 1; // $_SESSION['iduser'];
+	
+	//Crea un model para obtener los métodos
+	$UsuarioModel = new Usuario();
+	//Llama al método para el obtener los datos del usuario desde la BD
+	$datos = $UsuarioModel->editarUsuario($user);
+	//Cierra la conexión
+	unset($UsuarioModel);
+	//Redirecciona al formulario para modificar los datos
+	require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/views/EditarPerfil.php';
+}
 
+if ($action === 'confirmarEditar'){
+	$user = 1; // $_SESSION['iduser'];
+	$contrasena = $_POST['contrasena'];
+	$nombre = $_POST['nombre'];
+	$imagen = $_POST['imagen'];
+	
+	//Setea imagen a string vacío si no tiene datos
+	if (empty($imagen)){
+		$imagen = "";
+	}
+	
+	//Chequeo innecesario por el momento dado que son required en el form
+	if (empty($contrasena) || empty($nombre)) {
+		echo "El usuario, contraseña y nombre son campos requeridos.";
+		return;
+	}
 
+	//Crea un model para obtener los métodos
+	$UsuarioModel = new Usuario();
+	//Llama al método para el insert a la BD
+	$UsuarioModel->confirmarEditar($user, $contrasena, $nombre, $imagen);
+	//Cierra la conexión
+	unset($UsuarioModel);
+	
+	// REDIRECCIONAR AL INDEX
+}
+
+if ($action === 'grilla'){
+
+}
 
 
 /*
 --USUARIOS
 	Nuevo Usuario < Hecho >
-	Grilla Usuarios
-	View Usuario
-	Edit Usuario
+	Grilla Usuarios <Pendiente>
+	View Usuario < Hecho >
+	Edit Usuario < Hecho >
+	Validación de datos <Pendiente>
 
 */
 
