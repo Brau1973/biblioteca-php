@@ -54,7 +54,7 @@ class Usuario
     
     public function perfilUsuario($user){
         // Se construye la query
-        $sql = "SELECT Usuario, Nombre, Imagen FROM usuarios WHERE idusuario = '$user'";
+        $sql = "SELECT Usuario, Nombre, Imagen FROM usuarios WHERE IdUsuario = '$user'";
          // Ejecuta la query
         $perfil = $this->conexion->query($sql);
         $datos = $perfil->fetch_all(MYSQLI_ASSOC);
@@ -63,7 +63,7 @@ class Usuario
 
     public function editarUsuario($user){
         // Se construye la query
-        $sql = "SELECT Usuario, Contrasena, Nombre, Imagen FROM usuarios WHERE idusuario = '$user'";
+        $sql = "SELECT Usuario, Contrasena, Nombre, Imagen FROM usuarios WHERE IdUsuario = '$user'";
          // Ejecuta la query
         $perfil = $this->conexion->query($sql);
         $datos = $perfil->fetch_all(MYSQLI_ASSOC);
@@ -85,6 +85,18 @@ class Usuario
             } else {
                 echo "Error al guardar los datos: " . $this->conexion->error;
             }
+        }
+    }
+
+    public function buscarUsuario($username){       //Devuelve true si encuentra un usuario
+        $sql = "SELECT Usuario FROM usuarios WHERE Usuario = '$username'";
+        
+        $user = $this->conexion->query($sql);
+
+        if(empty($user)){
+            return false;
+        } else {
+            return true;
         }
     }
 }
