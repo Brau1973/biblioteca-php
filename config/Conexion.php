@@ -4,7 +4,7 @@
 function Conectarse(){
 	$host = 'localhost';
 	$usuario = 'root';
-	$contraseña = 'seba1234';
+	$contraseña = '';
 	$base_datos = 'biblioteca';
 	$link = mysqli_connect($host, $usuario, $contraseña, $base_datos);
 	if ($link->connect_error) {

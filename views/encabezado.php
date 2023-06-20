@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS-->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-    <title>ProyectoMVC</title>
+    <title>Biblioteca</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!--if lt IE 9
     script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
@@ -16,7 +16,7 @@
   <body class="sidebar-mini fixed">
     <div class="wrapper">
       <!-- Navbar-->
-      <header class="main-header hidden-print"><a class="logo" href="index.php">ProyectoMVC</a>
+      <header class="main-header hidden-print"><a class="logo" href="index.php">Biblioteca</a>
         <nav class="navbar navbar-static-top">
           <!-- Sidebar toggle button--><a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
           <!-- Navbar Right Menu-->
@@ -51,24 +51,24 @@
       <aside class="main-sidebar hidden-print">
         <section class="sidebar">
           <div class="user-panel">
-            <div class="pull-left image"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image"></div>
+            <div class="pull-left image"><img class="img-circle" src="../assets/images/user.png" alt="User Image"></div>
             <div class="pull-left info">
               <p>John Doe</p>
-              <p class="designation">Frontend Developer</p>
+              <!-- <p class="designation">Frontend Developer</p> -->
             </div>
           </div>
           <!-- Sidebar Menu-->
           <ul class="sidebar-menu">
             <li class="active"><a href="index.php"><i class="fa fa-home"></i><span>Home</span></a></li>
-            <li class="treeview"><a href="#"><i class="fa fa-laptop"></i><span>Libros</span><i class="fa fa-angle-right"></i></a>
+            <li class="treeview"><a href="#"><i class="fa fa-book"></i><span>Libros</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="?c=producto"><i class="fa fa-circle-o"></i>Listar</a></li>
+                <li><a href="?c=libro"><i class="fa fa-circle-o"></i>Listar</a></li>
                 <!-- <li><a href="ui-font-awesome.html"><i class="fa fa-circle-o"></i> Nuevo Libro</a></li>
                 <li><a href="ui-cards.html"><i class="fa fa-circle-o"></i> Cards</a></li>
                 <li><a href="widgets.html"><i class="fa fa-circle-o"></i> Widgets</a></li> -->
               </ul>
             </li>
-            <li class="treeview"><a href="#"><i class="fa fa-edit"></i><span>Prestamos</span><i class="fa fa-angle-right"></i></a>
+            <li class="treeview"><a href="#"><i class="fa fa-get-pocket"></i><span>Prestamos</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="form-components.html"><i class="fa fa-circle-o"></i> Listar</a></li>
                 <!-- <li><a href="form-custom.html"><i class="fa fa-circle-o"></i> Custom Components</a></li>
@@ -76,22 +76,10 @@
                 <li><a href="form-notifications.html"><i class="fa fa-circle-o"></i> Form Notifications</a></li> -->
               </ul>
             </li>
-            <li class="treeview"><a href="#"><i class="fa fa-th-list"></i><span>Usuarios</span><i class="fa fa-angle-right"></i></a>
+            <li class="treeview"><a href="#"><i class="fa fa-users"></i><span>Usuarios</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="table-basic.html"><i class="fa fa-circle-o"></i> Listar</a></li>
                 <!-- <li><a href="table-data-table.html"><i class="fa fa-circle-o"></i> Data Tables</a></li> -->
-              </ul>
-            </li>
-            <li class="treeview"><a href="#"><i class="fa fa-file-text"></i><span>Pages</span><i class="fa fa-angle-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="blank-page.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                <li><a href="page-login.html"><i class="fa fa-circle-o"></i> Login Page</a></li>
-                <li><a href="page-lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen Page</a></li>
-                <li><a href="page-user.html"><i class="fa fa-circle-o"></i> User Page</a></li>
-                <li><a href="page-invoice.html"><i class="fa fa-circle-o"></i> Invoice Page</a></li>
-                <li><a href="page-calendar.html"><i class="fa fa-circle-o"></i> Calendar Page</a></li>
-                <li><a href="page-mailbox.html"><i class="fa fa-circle-o"></i> Mailbox</a></li>
-                <li><a href="page-error.html"><i class="fa fa-circle-o"></i> Error Page</a></li>
               </ul>
             </li>
           </ul>
