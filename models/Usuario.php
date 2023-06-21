@@ -92,7 +92,8 @@ class Usuario
         $sql = "SELECT Usuario FROM usuarios WHERE Usuario = '$username'";
         
         $user = $this->conexion->query($sql);
-
+        
+        $user = $user->fetch_all(MYSQLI_ASSOC);
         if(empty($user)){
             return false;
         } else {
