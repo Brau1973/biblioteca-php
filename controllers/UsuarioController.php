@@ -18,6 +18,7 @@ function usuarioValido($user){			//Chequea al menos una mayúscula o una minúsc
 	if( (preg_match( '~[A-Z]~', $user) ||
 		preg_match( '~[a-z]~', $user) ||
 		preg_match( '~\d~', $user)) &&
+		!preg_match('/\s/',$user) &&
 		(strlen($user) > 7)){
 		
 		$UsuarioModel = new Usuario();		//Abre conexión para consultar si el nombre de usuario existe en BD
@@ -39,6 +40,7 @@ function contraValido($contrasena){			//Chequea al menos una mayúscula, una min
 	if( preg_match( '~[A-Z]~', $contrasena) &&
 		preg_match( '~[a-z]~', $contrasena) &&
 		preg_match( '~\d~', $contrasena) &&
+		!preg_match('/\s/',$contrasena) &&
 		(strlen($contrasena) > 7)){
 		return true;
 	} else {
@@ -132,18 +134,22 @@ if ($action === 'insertar'){
 		//Redirecciona al View de registro. ¿Cambiar por view de Login?
 		require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/views/AltaUsuarioForm.php';
 	}else{
-		if (!empty($_SESSION['erroruser']))
+		if (!empty($_SESSION['erroruser'])){
 			echo $_SESSION['erroruser'];
 			unset($_SESSION['erroruser']);
-		if (!empty($_SESSION['errorcontra']))
+		}
+		if (!empty($_SESSION['errorcontra'])){
 			echo $_SESSION['errorcontra'];
 			unset($_SESSION['errorcontra']);
-		if (!empty($_SESSION['errornombre']))
+		}
+		if (!empty($_SESSION['errornombre'])){
 			echo $_SESSION['errornombre'];
 			unset($_SESSION['errornombre']);
-		if (!empty($_SESSION['errorimagen']))
+		}
+		if (!empty($_SESSION['errorimagen'])){
 			echo $_SESSION['errorimagen'];
 			unset($_SESSION['errorimagen']);
+		}
 		require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/views/AltaUsuarioForm.php';
 	}
 }
