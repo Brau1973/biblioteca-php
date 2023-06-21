@@ -28,6 +28,11 @@ class Libro {
     public function getId() {
         return $this->id;
     }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function getNombre() {
         return $this->nombre;
     }
@@ -102,8 +107,16 @@ class Libro {
             $consulta=$this->pdo->prepare("SELECT * FROM libros WHERE Id=?;");
             $consulta->execute(array($id));
             $r=$consulta->fetch(PDO::FETCH_OBJ);
-            $libro=new Libro($r->id, $r->nombre, $r->genero, $r->autor, $r->editorial, $r->descripcion, $r->en_prestamo);
-            return $libro;
+            $libroAux = new Libro();
+            $libroAux->setId($r->Id);
+            $libroAux->setNombre($r->Nombre);
+            $libroAux->setGenero($r->Genero);
+            $libroAux->setAutor($r->Autor);
+            $libroAux->setEditorial($r->Editorial);
+            $libroAux->setDescripcion($r->Descripcion);
+            $libroAux->setEnPrestamo($r->EnPrestamo);
+
+            return $libroAux;
 
         }catch(Exception $e){
             die($e->getMessage());
