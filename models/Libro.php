@@ -13,7 +13,7 @@ class Libro {
 
     //--------------------------- CONSTRUCTORES ---------------------------
     public function __construct() {
-        $this->pdo = BaseDeDatos::Conectar();
+        $this->pdo = ConexionPDO::Conectar();
     }
 
     // public function __construct($nombre, $descripcion, $en_prestamo = false) {
@@ -134,7 +134,7 @@ class Libro {
                         $libro->getAutor(),
                         $libro->getEditorial(),
                         $libro->getDescripcion(),
-                        $libro->getEnPrestamo(),
+                        0,
                         ));
         }catch(Exception $e){
             die($e->getMessage());

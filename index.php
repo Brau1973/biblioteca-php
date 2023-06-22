@@ -1,5 +1,5 @@
 <?php
-require_once "models/basededatos.php";
+require_once "config/ConexionPDO.php";
 
 // Info en link
 // c = controlador

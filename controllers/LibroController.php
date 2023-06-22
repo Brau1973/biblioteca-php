@@ -40,18 +40,18 @@ class LibroController{
         $libro->setAutor($_POST['autor']);
         $libro->setEditorial($_POST['editorial']);
         $libro->setDescripcion($_POST['descripcion']);
-        $libro->setEnPrestamo($_POST['en_prestamo']);
+        //$libro->setEnPrestamo($_POST['en_prestamo']);
 
         $libro->getId() > 0 ?
         $this->libro->actualizar($libro) :
         $this->libro->insertar($libro);
 
-        header("location: ?c=Libro");
+        header("location: ?c=libro");
     }
 
     public function borrar() {
         $this->libro->eliminar($_GET["id"]);
-        header("location: ?c=Libro");
+        header("location: ?c=libro");
     }
 }
 

@@ -58,16 +58,16 @@
                               </div>
                           </div>
 
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                               <label class="col-lg-2 control-label" for="en_prestamo">En Préstamo</label>
                               <div class="col-lg-10">
                                   <input required class="form-control" name="en_prestamo" type="number" placeholder="Estado de préstamo del libro" value="<?=$libroAux->getEnPrestamo()?>">
                               </div>
-                          </div>
+                          </div> -->
 
                           <div class="form-group">
                               <div class="col-lg-10 col-lg-offset-2">
-                                  <button class="btn btn-default" type="reset">Cancelar</button>
+                                  <button class="btn btn-default" type="reset" onclick="history.back()">Cancelar</button>
                                   <button class="btn btn-primary" type="submit">Enviar</button>
                               </div>
                           </div>
