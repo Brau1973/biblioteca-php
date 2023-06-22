@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Config.php';
+require_once 'ConfigBD.php';
 
 class ConexionPDO {
 
