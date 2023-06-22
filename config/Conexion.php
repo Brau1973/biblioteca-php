@@ -1,11 +1,12 @@
 <?php
 // Datos de conexión a la base de datos
+require_once 'ConfigBD.php';
 
 function Conectarse(){
-	$host = 'localhost';
-	$usuario = 'root';
-	$contraseña = '';
-	$base_datos = 'biblioteca';
+	$host = DB_SERVER;
+	$usuario = DB_USERNAME;
+	$contraseña = DB_PASSWORD;
+	$base_datos = DB_NAME;
 	$link = mysqli_connect($host, $usuario, $contraseña, $base_datos);
 	if ($link->connect_error) {
 			die("Error de conexión: " . $conexion->connect_error);
