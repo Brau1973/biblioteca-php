@@ -10,6 +10,9 @@ if(!isset($_GET['c'])){
     // call_user_func llama a un metodo especifico de un objeto dado
     // en este caso el objto es el controlador y el metodo es inicio
     call_user_func(array($controlador,"Inicio"));
+
+//Cuando haya login, añadir chequeo de ID para enviar a Inicio o Login
+
 }else{
     $controlador = $_GET['c'];
     //Pone en mayus la primera letra de cada palabra

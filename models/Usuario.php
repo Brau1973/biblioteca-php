@@ -1,65 +1,206 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/models/Usuario.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/config/Conexion.php';
+/*require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/models/Usuario.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/config/Conexion.php';*/
 //include $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/config/Conexion.php';
 
 class Usuario
 {
-    private $conexion; // Objeto de conexión a la base de datos
+    //private $conexion; // Objeto de conexión a la base de datos
     
+    private $pdo;
+
+    private $idUsuario;
+    private $usuario;
+    private $contrasena;
+    private $nombre;
+    private $imagen;
+    private $tipo;
     
 	public function __construct(){
 
         // Inicializar la conexión a la base de datos
-		$this->conexion = Conectarse();
-        //$this->conexion = new mysqli("localhost", "usuario", "contraseña", "nombre_basedatos");
-        
-        // Verificar si ocurrió algún error en la conexión
-        if ($this->conexion->connect_error) {
-            die("Error de conexión: " . $this->conexion->connect_error);
-        }
+		$this->pdo = ConexionPDO::Conectar();
 
     }
     
-    public function __destruct(){
+    /*public function __destruct(){
 
         // Cerrar la conexión a la base de datos al finalizar
         CerrarConexion($this->conexion);
 
-    }
+    }*/
 	
-    
-    public function altaUsuario($user, $contrasena, $nombre, $imagen){
+    //GETTERS Y SETTERS
 
-        // Escapar los valores para prevenir inyección de SQL
-		$user = $this->conexion->real_escape_string($user);
-		$contrasena = $this->conexion->real_escape_string($contrasena);
-		$nombre = $this->conexion->real_escape_string($nombre);
-		$imagen = $this->conexion->real_escape_string($imagen);
-        
-        // Se construye la query, se podría preparar también, pero funciona así
-		if ($imagen != ""){
-			$sql = "INSERT INTO usuarios (Usuario, Contrasena, Nombre, Imagen) VALUES ('$user', '$contrasena', '$nombre', '$imagen')";
-        }else{
-			$sql = "INSERT INTO usuarios (Usuario, Contrasena, Nombre) VALUES ('$user', '$contrasena', '$nombre')";
-		}
-        // Ejecuta la query
-        if ($this->conexion->query($sql) === TRUE) {
-            echo "Usuario guardado exitosamente";	//Esto se podría guardar como un dato de Session para ponerlo en un lugar particular del index o del form de registro
-        } else {
-            echo "Error al guardar el usuario: " . $this->conexion->error;
+    public function getIdUsuario() {
+        return $this->idUsuario;
+    }
+
+    public function setIdUsuario($idUsuario) {
+        $this->idUsuario = $idUsuario;
+    }
+    
+    public function getUsuario() {
+        return $this->usuario;
+    }
+
+    public function setUsuario($usuario) {
+        $this->usuario = $usuario;
+    }
+    
+    public function getContrasena() {
+        return $this->contrasena;
+    }
+
+    public function setContrasena($contrasena) {
+        $this->contrasena = $contrasena;
+    }
+    
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+    
+    public function getImagen() {
+        return $this->imagen;
+    }
+
+    public function setImagen($imagen) {
+        $this->imagen = $imagen;
+    }
+    
+    public function getTipo() {
+        return $this->tipo;
+    }
+    
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+    
+
+    // FUNCIONES
+
+    public function CountDisponibles(){
+        try{
+            $consulta=$this->pdo->prepare("SELECT COUNT(IdUsuario) as COUNT FROM usuario WHERE Tipo = 'cliente';");
+            $consulta->execute();
+            return $consulta->fetch(PDO::FETCH_OBJ);
+        }catch(Exception $e){
+            die($e->getMessage());
         }
+    }
 
+    public function Insertar(Usuario $usuario){
+        if ($usuario->getImagen()!=""){
+            try{
+                $consulta="INSERT INTO usuarios(Usuario, Contrasena, Nombre, Imagen) VALUES (?,?,?,?);";
+                $this->pdo->prepare($consulta)
+                        ->execute(array(
+                            $usuario->getUsuario(),
+                            $usuario->getContrasena(),
+                            $usuario->getNombre(),
+                            $usuario->getImagen()
+                            ));
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }else{
+            try{
+                $consulta="INSERT INTO usuarios(Usuario, Contrasena, Nombre) VALUES (?,?,?);";
+                $this->pdo->prepare($consulta)
+                        ->execute(array(
+                            $usuario->getUsuario(),
+                            $usuario->getContrasena(),
+                            $usuario->getNombre()
+                            ));
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }
     }
     
-    public function perfilUsuario($user){
-        // Se construye la query
-        $sql = "SELECT Usuario, Nombre, Imagen FROM usuarios WHERE idusuario = '$user'";
-         // Ejecuta la query
-        $perfil = $this->conexion->query($sql);
-        $datos = $perfil->fetch_all(MYSQLI_ASSOC);
-        return $datos;
+    public function Obtener($id){
+        try{
+            $consulta=$this->pdo->prepare("SELECT * FROM usuarios WHERE IdUsuario=?;");
+            $consulta->execute(array($id));
+            $r=$consulta->fetch(PDO::FETCH_OBJ);
+            $usuarioAux = new Usuario();
+            $usuarioAux->setIdUsuario($r->IdUsuario);
+            $usuarioAux->setUsuario($r->Usuario);
+            $usuarioAux->setContrasena($r->Contrasena);
+            $usuarioAux->setNombre($r->Nombre);
+            $usuarioAux->setImagen($r->Imagen);
+            $usuarioAux->setTipo($r->Tipo);
+
+            return $usuarioAux;
+
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
     }
+
+    public function ObtenerPorUser($user){
+        try{
+            $consulta=$this->pdo->prepare("SELECT * FROM usuarios WHERE Usuario=?;");
+            $consulta->execute(array($user));
+            $r=$consulta->fetch(PDO::FETCH_OBJ);
+            $usuarioAux = new Usuario();
+            $usuarioAux->setIdUsuario($r->IdUsuario);
+            $usuarioAux->setUsuario($r->Usuario);
+            $usuarioAux->setContrasena($r->Contrasena);
+            $usuarioAux->setNombre($r->Nombre);
+            $usuarioAux->setImagen($r->Imagen);
+            $usuarioAux->setTipo($r->Tipo);
+
+            return $usuarioAux;
+
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    
+    public function Actualizar(Usuario $usuario){
+        if($usuario->getImagen()!=""){
+            try{
+                $consulta="UPDATE usuarios SET 
+                    Contrasena=?,
+                    Nombre=?,
+                    Imagen=?
+                    WHERE IdUsuario=?;
+                ";
+                $this->pdo->prepare($consulta)
+                        ->execute(array(
+                            $usuario->getContrasena(),
+                            $usuario->getNombre(),
+                            $usuario->getImagen(),
+                            $usuario->getIdUsuario()
+                            ));
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }else{
+            try{
+                $consulta="UPDATE usuarios SET 
+                    Contrasena=?,
+                    Nombre=?,
+                    WHERE IdUsuario=?;
+                ";
+                $this->pdo->prepare($consulta)
+                        ->execute(array(
+                            $usuario->getContrasena(),
+                            $usuario->getNombre(),
+                            $usuario->getIdUsuario()
+                            ));
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }
+    }
+
 }
 
 

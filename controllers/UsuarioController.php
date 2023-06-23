@@ -1,80 +1,78 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/models/Usuario.php';
 
-$action = $_GET['action'];
+require_once "models/Usuario.php";
+require_once "validacion/ValidacionUsuario.php";
 
-if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+class UsuarioController{
 
+	private $usuario;
+	private $validator;
 
-// ALTA DE USUARIO
-if ($action === 'insertar'){
-	//Obtiene datos del form
-	$user = $_POST['user'];
-	$contrasena = $_POST['contrasena'];
-	$nombre = $_POST['nombre'];
-	$imagen = $_POST['imagen'];
+    public function __CONSTRUCT(){
+        $this->usuario=new Usuario();
+    }
+
+	public function Inicio(){
+        require_once "views/encabezado.php";
+        require_once "views/pie.php";
+    }
+
+	public function FormCrear() {
+        $titulo = "Registrar Usuario";
+        $pHeader = "Ingrese sus datos";
+        $usuarioAux = new Usuario();
+        if (isset($_GET['id'])) {		// VER QUÉ ES ID EXACTAMENTE
+            $usuarioAux = $this->usuario->obtener($_GET['id']);
+            $titulo = "Modificar";
+            $pHeader = "Actualice sus datos";
+        }
+
+        require_once "views/encabezado.php";
+        require_once "views/usuarios/AltaUsuarioForm.php";
+        require_once "views/pie.php";
+    }
 	
-	//Setea imagen a string vacío si no tiene datos
-	if (empty($imagen)){
+	public function Guardar() {
+		$validator = new ValidacionUsuario();
+		$user = $validator->test_input($_POST['usuario']);
+		echo $user;
+		$contrasena = $validator->test_input($_POST['contrasena']);
+		echo $contrasena;
+		$nombre = $validator->test_input($_POST['nombre']);
+		echo $nombre;
 		$imagen = "";
-	}
-	
-	//Chequeo innecesario por el momento dado que son required en el form
-	if (empty($user) || empty($contrasena) || empty($nombre)) {
-		echo "El usuario, contraseña y nombre son campos requeridos.";
-		return;
-	}
+		if (!empty($_POST['imagen'])){
+			$imagen = $validator->test_input($_POST['imagen']);
+		}
+		echo $imagen;
+		$usuario = new Usuario();
+		if(intval($_POST['id']) > 0){
+			if($validator->contraValido($contrasena) && $validator->nombreValido($nombre) 
+						&& $validator->imagenValido($imagen)){
+				$usuario->setIdUsuario(intval($_POST['id']));
+				$usuario->setUsuario($user);
+				$usuario->setContrasena($contrasena);
+				$usuario->setNombre($nombre);
+				$usuario->setImagen($imagen);
+				$this->usuario->Actualizar($usuario);
+			}
+		}else{
+			if($validator->usuarioValido($user) && $validator->contraValido($contrasena) 
+				&& $validator->nombreValido($nombre) && $validator->imagenValido($imagen)){
+				$usuario->setIdUsuario(intval($_POST['id']));
+				$usuario->setUsuario($user);
+				$usuario->setContrasena($contrasena);
+				$usuario->setNombre($nombre);
+				$usuario->setImagen($imagen);
+				$this->usuario->Insertar($usuario);
+			}
+		}
+		/*$usuario->getIdUsuario() > 0 ?
+		$this->usuario->Actualizar($usuario) :
+		$this->usuario->Insertar($usuario);*/
 
-	//Crea un model para obtener los métodos
-	$UsuarioModel = new Usuario();
-	//Llama al método para el insert a la BD
-	$UsuarioModel->altaUsuario($user, $contrasena, $nombre, $imagen);
-	//Cierra la conexión
-	unset($UsuarioModel);
-
-	//Redirecciona al View de registro. ¿Cambiar por view de Login?
-	require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/views/AltaUsuarioForm.php';
+		header("location: ?c=Inicio");
+    }
 }
-
-
-
-// VER PERFIL
-if ($action === 'verperfil'){
-	$user = 1; // $_SESSION['iduser'];
-	
-	//Crea un model para obtener los métodos
-	$UsuarioModel = new Usuario();
-	//Llama al método para el obtener los datos del usuario desde la BD
-	$datos = $UsuarioModel->perfilUsuario($user);
-	//Guarda datos en array
-	/*$userData = array();
-	foreach ($datos[0] as $val){
-		echo $val;
-		$userData = $val;
-	}*/
-	//Cierra la conexión
-	unset($UsuarioModel);
-	require_once $_SERVER['DOCUMENT_ROOT'].'/biblioteca-php/views/VerPerfil.php';
-}
-
-
-
-
-
-
-/*
---USUARIOS
-	Nuevo Usuario < Hecho >
-	Grilla Usuarios
-	View Usuario
-	Edit Usuario
-
-*/
-
-/* include ("config.php");
-require_once './biblioteca-php/AltaUsuarioForm.php';
-require_once './biblioteca-php/models/Usuario.php';
-require_once './biblioteca-php/repositories/UsuarioRepository.php';
-require_once("../model/modelo.php");*/
 
 ?>
