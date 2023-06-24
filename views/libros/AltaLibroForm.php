@@ -1,3 +1,16 @@
+<?=
+session_start();
+
+// Verificar si hay un mensaje de error almacenado en la variable de sesión
+if (isset($_SESSION['error'])) {
+    // Mostrar la notificación de error
+    echo '<div class="error">' . $_SESSION['error'] . '</div>';
+    
+    // Eliminar el mensaje de error de la variable de sesión
+    unset($_SESSION['error']);
+}
+?>
+
 <div class="content-wrapper">
         <div class="page-title">
           <div>

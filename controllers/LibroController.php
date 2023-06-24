@@ -33,20 +33,34 @@ class LibroController{
     }
 
     public function Guardar() {
-        $libro = new Libro();
-        $libro->setId(intval($_POST['id']));
-        $libro->setNombre($_POST['nombre']);
-        $libro->setGenero($_POST['genero']);
-        $libro->setAutor($_POST['autor']);
-        $libro->setEditorial($_POST['editorial']);
-        $libro->setDescripcion($_POST['descripcion']);
-        //$libro->setEnPrestamo($_POST['en_prestamo']);
 
-        $libro->getId() > 0 ?
-        $this->libro->actualizar($libro) :
-        $this->libro->insertar($libro);
+        // Validar que el campo Autor no contenga números
+        $autor = $_POST['autor'];
+        if (preg_match('/\d/', $autor)) {
+            $msgError = "El campo Autor no debe contener números";
+            session_start();
+            $_SESSION['errorAutorValidacion'] = $msgError;
+            
+            // Redirigir al formulario de alta
+            header("location: ?c=libro&a=FormCrear");
+            exit; // Asegurar que el script se detiene después de la redirección
 
-        header("location: ?c=libro");
+        } else {
+            $libro = new Libro();
+            $libro->setId(intval($_POST['id']));
+            $libro->setNombre($_POST['nombre']);
+            $libro->setGenero($_POST['genero']);
+            $libro->setAutor($autor);
+            $libro->setEditorial($_POST['editorial']);
+            $libro->setDescripcion($_POST['descripcion']);
+            //$libro->setEnPrestamo($_POST['en_prestamo']);
+    
+            $libro->getId() > 0 ?
+            $this->libro->actualizar($libro) :
+            $this->libro->insertar($libro);
+    
+            header("location: ?c=libro");
+        }
     }
 
     public function borrar() {
