@@ -17,3 +17,12 @@ CREATE TABLE IF NOT EXISTS `biblioteca`.`usuarios` (
   `Tipo` VARCHAR(45) NOT NULL DEFAULT 'cliente',
   PRIMARY KEY (`IdUsuario`),
   UNIQUE INDEX `idusuario_UNIQUE` (`IdUsuario` ASC)
+
+CREATE TABLE prestamos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  libro_id INT,
+  usuario_id INT,
+  estado VARCHAR(50),
+  FOREIGN KEY (libro_id) REFERENCES libros(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
