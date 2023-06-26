@@ -30,11 +30,13 @@
                       <td><?=$r->Autor?></td>
                       <td><?=$r->Editorial?></td>
                       <td><?=$r->EnPrestamo?></td>
+                      <?PHP if($_SESSION['tipo'] == "administrador"){?>
                       <td>
                           <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>"><i class="fa fa-lg fa-refresh"></i></a>
 
                           <a class="btn btn-warning btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa-trash"></i></a>
-                    </td>
+                      </td>
+                      <?PHP } ?>
                     </tr>
                 <?php endforeach;?>
                   </tbody>
