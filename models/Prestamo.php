@@ -54,8 +54,12 @@ class Prestamo {
   public function Listar() {
     try {
         /* Verificar si el usuario es administrador */ 
-        if ($pdo.is_bool()) {
-            $consulta = $this->pdo->prepare("SELECT * FROM prestamos;");
+        if (1>0) {
+          $consulta = $this->pdo->prepare("SELECT p.*, l.Nombre AS Libro, u.Nombre AS Usuario
+          FROM prestamos p
+          INNER JOIN libros l ON p.libro_id = l.Id
+          INNER JOIN usuarios u ON p.usuario_id = u.IdUsuario;");
+
         } else {
             $consulta = $this->pdo->prepare("SELECT * FROM prestamos WHERE usuarioId = :usuarioId;");
             $consulta->bindParam(':usuarioId', /* Obtener el ID del usuario lector logueado */);

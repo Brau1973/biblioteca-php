@@ -23,6 +23,6 @@ CREATE TABLE prestamos (
   libro_id INT,
   usuario_id INT,
   estado VARCHAR(50),
-  FOREIGN KEY (libro_id) REFERENCES libros(id),
-  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+  FOREIGN KEY (libro_id) REFERENCES libros(Id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(IdUsuario)
 );

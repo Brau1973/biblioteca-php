@@ -63,25 +63,13 @@
             <li class="treeview"><a href="#"><i class="fa fa-book"></i><span>Libros</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="?c=libro"><i class="fa fa-circle-o"></i>Listar</a></li>
-                <!-- <li><a href="ui-font-awesome.html"><i class="fa fa-circle-o"></i> Nuevo Libro</a></li>
-                <li><a href="ui-cards.html"><i class="fa fa-circle-o"></i> Cards</a></li>
-                <li><a href="widgets.html"><i class="fa fa-circle-o"></i> Widgets</a></li> -->
               </ul>
             </li>
             <li class="treeview"><a href="#"><i class="fa fa-get-pocket"></i><span>Prestamos</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="form-components.html"><i class="fa fa-circle-o"></i> Listar</a></li>
-                <!-- <li><a href="form-custom.html"><i class="fa fa-circle-o"></i> Custom Components</a></li>
-                <li><a href="form-samples.html"><i class="fa fa-circle-o"></i> Form Samples</a></li>
-                <li><a href="form-notifications.html"><i class="fa fa-circle-o"></i> Form Notifications</a></li> -->
+                <li><a href="?c=prestamo"><i class="fa fa-circle-o"></i> Listar</a></li>
               </ul>
             </li>
-            <!--<li class="treeview"><a href="#"><i class="fa fa-users"></i><span>Usuarios</span><i class="fa fa-angle-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="?c=Usuario&a=FormCrear&id=4"><i class="fa fa-circle-o"></i> Ver Perfil</a></li>
-                <li><a href="table-data-table.html"><i class="fa fa-circle-o"></i> Data Tables</a></li>
-              </ul>
-            </li>-->
           </ul>
         </section>
       </aside>
