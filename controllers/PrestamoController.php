@@ -11,15 +11,15 @@ class PrestamoController {
     }
 
     public function Inicio() {
-      session_start();
-      if(1>0){ //$_SESSION['usuarioRol'] = 'lector'
+        session_start();
+        if(1>0){ //$_SESSION['usuarioRol'] = 'lector'
         $textoCabezal = 'Todos los Prestamos';
-      }else{
+        }else{
         $textoCabezal = 'Mis prestamos';
-      }
-      require_once "views/encabezado.php";
-      require_once "views/prestamos/Grilla.php";
-      require_once "views/pie.php";
+        }
+        require_once "views/encabezado.php";
+        require_once "views/prestamos/Grilla.php";
+        require_once "views/pie.php";
     }
 
     public function FormCrear() {

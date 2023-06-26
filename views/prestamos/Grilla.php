@@ -1,7 +1,7 @@
 <div class="content-wrapper">
     <div class="page-title">
         <div>
-            <h1><?php $textoCabezal ?></h1>
+            <h1><?=$textoCabezal?></h1>
         </div>
     </div>
     <div class="row">
@@ -27,7 +27,7 @@
                         </thead>
                         <tbody>
                             <?php foreach ($this->prestamo->Listar() as $p) : ?>
-                                <tr style="background-color: <?php echo $p->estado === 'Devuelto' ? '#f2f2f2' : '#e6f2e6'; ?>">
+                                <tr style="background-color: <?php echo $p->estado === 'Devuelto' ? '#f2f2f2' : '#c8e6c8'; ?>">
                                     <td><?= $p->id ?></td>
                                     <td><?= $p->Libro ?></td>
                                     <?php if (1 > 0) /*($_SESSION['usuarioRol'] === 'admin')*/ : ?>
