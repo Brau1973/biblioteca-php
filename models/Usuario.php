@@ -85,7 +85,7 @@ class Usuario
 
     public function CountDisponibles(){
         try{
-            $consulta=$this->pdo->prepare("SELECT COUNT(IdUsuario) as COUNT FROM usuario WHERE Tipo = 'cliente';");
+            $consulta=$this->pdo->prepare("SELECT COUNT(IdUsuario) as COUNT FROM usuarios WHERE Tipo = 'cliente';");
             $consulta->execute();
             return $consulta->fetch(PDO::FETCH_OBJ);
         }catch(Exception $e){
@@ -142,7 +142,7 @@ class Usuario
         }
     }
 
-    public function ObtenerPorUser($user){
+    public function ValidacionUser($user){
         try{
             $consulta=$this->pdo->prepare("SELECT * FROM usuarios WHERE Usuario=?;");
             $consulta->execute(array($user));
@@ -154,8 +154,10 @@ class Usuario
             $usuarioAux->setNombre($r->Nombre);
             $usuarioAux->setImagen($r->Imagen);
             $usuarioAux->setTipo($r->Tipo);
-
-            return $usuarioAux;
+            if (!empty($usuarioAux->getUsuario()))
+                return true;
+            else
+                return false;
 
         }catch(Exception $e){
             die($e->getMessage());
@@ -198,6 +200,25 @@ class Usuario
             }catch(Exception $e){
                 die($e->getMessage());
             }
+        }
+    }
+
+    public function ObtenerPorUser($user){
+        try{
+            $consulta=$this->pdo->prepare("SELECT * FROM usuarios WHERE Usuario=?;");
+            $consulta->execute(array($user));
+            $r=$consulta->fetch(PDO::FETCH_OBJ);
+            $usuarioAux = new Usuario();
+            $usuarioAux->setIdUsuario($r->IdUsuario);
+            $usuarioAux->setUsuario($r->Usuario);
+            $usuarioAux->setContrasena($r->Contrasena);
+            $usuarioAux->setNombre($r->Nombre);
+            $usuarioAux->setImagen($r->Imagen);
+            $usuarioAux->setTipo($r->Tipo);
+            return $usuarioAux;
+
+        }catch(Exception $e){
+            die($e->getMessage());
         }
     }
 

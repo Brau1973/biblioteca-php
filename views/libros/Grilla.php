@@ -3,9 +3,11 @@
     <div>
       <h1>Todos Nuestros libros!</h1>
     </div>
-    <div>
-      <a class="btn btn-primary btn-flat" href="?c=libro&a=FormCrear"><i class="fa fa-lg fa-plus"></i></a>
-    </div>
+    <?PHP if($_SESSION['tipo'] == "administrador"){?>
+      <div>
+        <a class="btn btn-primary btn-flat" href="?c=libro&a=FormCrear"><i class="fa fa-lg fa-plus"></i></a>
+      </div>
+    <?PHP } ?> 
   </div>
   <div class="row">
     <div class="col-md-12">
@@ -37,11 +39,13 @@
                     No
                   <?php endif; ?>
                 </td>
-                <td>
-                  <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>"><i class="fa fa-lg fa-refresh"></i></a>
-                  <a class="btn btn-warning btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa-trash"></i></a>
-                  <a class="btn btn-primary btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa fa-get-pocket"></i></a>
-                </td>
+                  <td>  
+                    <?PHP if($_SESSION['tipo'] == "administrador"){?>
+                      <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>"><i class="fa fa-lg fa-refresh"></i></a>
+                      <a class="btn btn-warning btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa-trash"></i></a>
+                    <?PHP } ?>
+                    <a class="btn btn-primary btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa fa-get-pocket"></i></a>
+                  </td>
               </tr>
               <?php endforeach;?>
             </tbody>
