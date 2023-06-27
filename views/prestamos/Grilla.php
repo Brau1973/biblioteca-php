@@ -10,27 +10,32 @@
                 <div class="card-body">
                     <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
-                            <?php if (1 > 0) /*($_SESSION['usuarioRol'] === 'admin')*/ : ?>
+                            <?PHP if($_SESSION['tipo'] == "administrador"){?>
                                 <tr>
                                     <th>Id</th>
                                     <th>Libro</th>
                                     <th>Usuario</th>
                                     <th>Estado</th>
                                 </tr>
-                            <?php else : ?>
+                            <?php }else{ ?>
                                 <tr>
                                     <th>Id</th>
                                     <th>Libro</th>
                                     <th>Estado</th>
                                 </tr>
-                            <?php endif; ?>
+                            <?php } ?>
                         </thead>
                         <tbody>
-                            <?php foreach ($this->prestamo->Listar() as $p) : ?>
+                        <?PHP if($_SESSION['tipo'] == "administrador"){
+                            $listadoPrestamos = $this->prestamo->ListadoGeneral();
+                        }else{
+                            $listadoPrestamos = $this->prestamo->ListadoDeUnUsuario($_SESSION['id']);
+                        } ?> 
+                            <?php foreach ($listadoPrestamos as $p) : ?>
                                 <tr style="background-color: <?php echo $p->estado === 'Devuelto' ? '#f2f2f2' : '#c8e6c8'; ?>">
                                     <td><?= $p->id ?></td>
                                     <td><?= $p->Libro ?></td>
-                                    <?php if (1 > 0) /*($_SESSION['usuarioRol'] === 'admin')*/ : ?>
+                                    <?php if($_SESSION['tipo'] == "administrador"): ?>
                                         <td><?= $p->Usuario ?></td>
                                     <?php endif; ?>
                                     <td><?= $p->estado ?></td>

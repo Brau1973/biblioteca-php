@@ -48,25 +48,28 @@ class Prestamo {
   }
 
   // --------------------------- OTROS METODOS ---------------------------
-
-  // EN CASO DE USU ADMIN LOGUEADO DEBERIA BUSCAR TODOS LOS PRESTAMOS
-  // EN CASO DE USU LECTOR LOGUEADO DEBERIA BUSCAR SOLO LOS DE ESE USU
-  public function Listar() {
+  public function ListadoGeneral() {
     try {
-        /* Verificar si el usuario es administrador */ 
-        if (1>0) {
-          $consulta = $this->pdo->prepare("SELECT p.*, l.Nombre AS Libro, u.Nombre AS Usuario
-          FROM prestamos p
-          INNER JOIN libros l ON p.libro_id = l.Id
-          INNER JOIN usuarios u ON p.usuario_id = u.IdUsuario;");
+      $consulta = $this->pdo->prepare("SELECT p.*, l.Nombre AS Libro, u.Nombre AS Usuario
+                                      FROM prestamos p
+                                      INNER JOIN libros l ON p.libro_id = l.Id
+                                      INNER JOIN usuarios u ON p.usuario_id = u.IdUsuario;");
+      $consulta->execute();
+      return $consulta->fetchAll(PDO::FETCH_OBJ);
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+  }
 
-        } else {
-            $consulta = $this->pdo->prepare("SELECT * FROM prestamos WHERE usuarioId = :usuarioId;");
-            $consulta->bindParam(':usuarioId', /* Obtener el ID del usuario lector logueado */);
-        }
-        
-        $consulta->execute();
-        return $consulta->fetchAll(PDO::FETCH_OBJ);
+  public function ListadoDeUnUsuario($idUsuario) {
+    try {
+      $consulta = $this->pdo->prepare("SELECT p.*, l.Nombre AS Libro, u.Nombre AS Usuario
+                                      FROM prestamos p
+                                      INNER JOIN libros l ON p.libro_id = l.Id
+                                      INNER JOIN usuarios u ON p.usuario_id = u.IdUsuario
+                                      Where u.IdUsuario = ?;");
+      $consulta->execute(array($idUsuario));
+      return $consulta->fetchAll(PDO::FETCH_OBJ);
     } catch (Exception $e) {
         die($e->getMessage());
     }
@@ -74,7 +77,7 @@ class Prestamo {
 
   public function Insertar(Prestamo $prestamo) {
     try {
-        $consulta = "INSERT INTO prestamos(Id, UsuarioId, LibroId, Estado) VALUES (?, ?, ?, ?);";
+        $consulta = "INSERT INTO prestamos(id, usuario_id, libro_id, estado) VALUES (?, ?, ?, ?);";
         $this->pdo->prepare($consulta)->execute(array(
             $prestamo->getId(),
             $prestamo->getUsuarioId(),
