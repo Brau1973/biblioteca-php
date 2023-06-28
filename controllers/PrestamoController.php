@@ -11,7 +11,6 @@ class PrestamoController {
     public function __CONSTRUCT() {
         $this->prestamo = new Prestamo();
         $this->libro = new Libro();
-
     }
 
     public function Inicio() {
@@ -43,8 +42,20 @@ class PrestamoController {
             header("location: ?c=prestamo");
     }
 
-    public function Borrar() {
-        $this->prestamo->Eliminar($_GET["id"]);
+    public function DevolverPrestamo() {
+        $prestamoId = intval($_GET['idPres']);
+        $prestamo = new Prestamo();
+        $prestamo->setId($prestamoId);
+        $prestamo->setEstado('Devuelto');
+        $this->prestamo->Actualizar($prestamo);
+    
+        // Actualizar el estado del libro a disponible
+        $libroId = intval($_GET['idLibro']);
+        $libro = new Libro();
+        $libro->setId($libroId);
+        $libro->setEnPrestamo(0);
+        $this->libro->ActualizarEstado($libro);
+    
         header("location: ?c=prestamo");
     }
 }
