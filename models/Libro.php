@@ -176,5 +176,15 @@ class Libro {
             die($e->getMessage());
         }
     }
+
+    public function ActualizarEstado(Libro $libro){
+        try{
+            $consulta="UPDATE libros SET EnPrestamo=? WHERE Id=?;";
+            $this->pdo->prepare($consulta)->execute(array($libro->getEnPrestamo(),$libro->getId()));
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
 }
 ?>
