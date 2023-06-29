@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/carousel.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/alerts.css">
     <title>Biblioteca</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!--if lt IE 9

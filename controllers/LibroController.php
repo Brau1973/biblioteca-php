@@ -44,7 +44,6 @@ class LibroController{
             // Redirigir al formulario de alta
             header("location: ?c=libro&a=FormCrear");
             exit; // Asegurar que el script se detiene después de la redirección
-
         } else {
             $libro = new Libro();
             $libro->setId(intval($_POST['id']));
