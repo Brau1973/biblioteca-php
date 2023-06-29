@@ -33,7 +33,7 @@
                           <div class="form-group">
                               <label class="col-lg-2 control-label" for="contrasena">Contraseña</label>
                               <div class="col-lg-10">
-                                  <input required class="form-control" name="contrasena" type="text" placeholder="Su contraseña" value="<?=$usuarioAux->getContrasena()?>">
+                                  <input required class="form-control" name="contrasena" type="password" placeholder="Su contraseña" value="<?=$usuarioAux->getContrasena()?>">
                               </div>
                           </div>
 

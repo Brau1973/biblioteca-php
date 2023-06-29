@@ -44,7 +44,9 @@
                       <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>"><i class="fa fa-lg fa-refresh"></i></a>
                       <a class="btn btn-warning btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa-trash"></i></a>
                     <?PHP } ?>
-                    <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>"><i class="fa fa-lg fa fa-get-pocket"></i></a>
+                    <?php if ($r->EnPrestamo == 0): ?>
+                      <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>"><i class="fa fa-lg fa fa-get-pocket"></i></a>
+                    <?php endif; ?>
                   </td>
               </tr>
               <?php endforeach;?>
