@@ -19,7 +19,7 @@ class ValidacionUsuario{
             (strlen($user) > 7)){
             
             $UsuarioModel = new Usuario();		//Abre conexión para consultar si el nombre de usuario existe en BD
-            if(!$UsuarioModel->ObtenerPorUser($user)){
+            if(!$UsuarioModel->ValidacionUser($user)){
                 unset($UsuarioModel);
                 return true;
             }else{

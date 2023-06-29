@@ -71,8 +71,35 @@ class UsuarioController{
 		$this->usuario->Actualizar($usuario) :
 		$this->usuario->Insertar($usuario);*/
 
-		header("location: ?c=Inicio");
+		header("location: ?");
     }
+
+	public function Login(){
+		require_once "views/encabezado.php";
+        require_once "views/home/login.php";
+        require_once "views/pie.php";
+	}
+
+	public function finishLogin(){
+		$usuario = new Usuario();
+		$usuario = $this->usuario->ObtenerPorUser($_POST['usuario']);
+		if ($usuario->getIdUsuario()!=NULL && $usuario->getContrasena()==$_POST['contrasena']){
+			$_SESSION['id']=$usuario->getIdUsuario();
+			$_SESSION['usuario']=$usuario->getUsuario();
+			$_SESSION['tipo']=$usuario->getTipo();
+			$_SESSION['imagen']=$usuario->getImagen();
+		}
+		header("location: ?");
+	}
+
+	public function Logout(){
+		unset($_SESSION['id']);
+		unset($_SESSION['usuario']);
+		unset($_SESSION['tipo']);
+		unset($_SESSION['imagen']);
+		session_destroy();
+		header("location: ?");
+	}
 }
 
 ?>

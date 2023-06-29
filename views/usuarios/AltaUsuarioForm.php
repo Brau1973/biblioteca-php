@@ -24,28 +24,28 @@
                           <div class="form-group">
                               <input class="form-control" name="id" type="hidden" value="<?=$usuarioAux->getIdUsuario()?>">
 
-                              <label class="col-lg-2 control-label" for="nombre">Usuario</label>
+                              <label class="col-lg-2 control-label" for="usuario">Usuario</label>
                               <div class="col-lg-10">
                                   <input required class="form-control" name="usuario" type="text" placeholder="Su nombre de usuario" <?php if($titulo == "Modificar") echo "readonly" ?> value="<?=$usuarioAux->getUsuario()?>">
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="col-lg-2 control-label" for="genero">Contraseña</label>
+                              <label class="col-lg-2 control-label" for="contrasena">Contraseña</label>
                               <div class="col-lg-10">
-                                  <input required class="form-control" name="contrasena" type="text" placeholder="Su contraseña" value="<?=$usuarioAux->getContrasena()?>">
+                                  <input required class="form-control" name="contrasena" type="password" placeholder="Su contraseña" value="<?=$usuarioAux->getContrasena()?>">
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="col-lg-2 control-label" for="autor">Nombre</label>
+                              <label class="col-lg-2 control-label" for="nombre">Nombre</label>
                               <div class="col-lg-10">
                                   <input required class="form-control" name="nombre" type="text" placeholder="Su nombre" value="<?=$usuarioAux->getNombre()?>">
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="col-lg-2 control-label" for="editorial">Imagen</label>
+                              <label class="col-lg-2 control-label" for="imagen">Imagen</label>
                               <div class="col-lg-10">
                                   <input required class="form-control" name="imagen" type="text" placeholder="Link a su imagen" value="<?=$usuarioAux->getImagen()?>">
                               </div>
@@ -61,8 +61,8 @@
                     </form>
                   </div>
                 </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            	</div>
+         	 	</div>
+       	 	</div>
+				</div>
 </div>
