@@ -72,10 +72,11 @@
                       <?php if ($r->EnPrestamo == 0): ?>
                         <a class="<?php echo $btnClass; ?>" href=<?=$href?> title="<?php echo $title; ?>" ><i class="<?php echo $iconClass; ?>"></i></a>
                       <?php endif; ?>
+                    <?PHP }else{ ?>
+                      <?php if ($r->EnPrestamo == 0): ?>
+                        <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>" title="Tomar en Prestamo"><i class="fa fa-lg fa fa-get-pocket"></i></a>
+                      <?php endif; ?>
                     <?PHP } ?>
-                    <?php if ($r->EnPrestamo == 0): ?>
-                      <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>" title="Tomar en Prestamo"><i class="fa fa-lg fa fa-get-pocket"></i></a>
-                    <?php endif; ?>
                   </td>
               </tr>
               <?php endforeach;?>
