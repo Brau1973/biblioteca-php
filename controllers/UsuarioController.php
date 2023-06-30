@@ -82,6 +82,8 @@ class UsuarioController{
 			$_SESSION['usuario']=$usuario->getUsuario();
 			$_SESSION['tipo']=$usuario->getTipo();
 			$_SESSION['imagen']=$usuario->getImagen();
+		}else{
+			$_SESSION['error'] = "El usuario o contraseña<br>no son correctos.";
 		}
 		header("location: ?");
 	}

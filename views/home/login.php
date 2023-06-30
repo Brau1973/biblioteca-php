@@ -1,15 +1,18 @@
 <?php
   $mensaje = '';
   if (isset($_SESSION['exito'])){
-    $mensaje = $mensaje.$_SESSION['exito'];
+    $mensaje = $_SESSION['exito'];
     unset($_SESSION['exito']);
+  }else if(isset($_SESSION['error'])){
+    $mensaje = $_SESSION['error'];
+    unset($_SESSION['error']);
   }
   if($mensaje!=''){
 ?>
     <div id="custom-alert">
       <div class="alert-overlay"></div>
       <div class="alert-box">
-        <h2>Success</h2>
+        <h2>Alert</h2>
         <p><?= $mensaje ?></p>
         <button class="close-btn" onclick="closeAlert()">Cerrar</button>
       </div>
