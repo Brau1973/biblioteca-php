@@ -52,7 +52,6 @@ class LibroController{
             $libro->setAutor($autor);
             $libro->setEditorial($_POST['editorial']);
             $libro->setDescripcion($_POST['descripcion']);
-            //$libro->setEnPrestamo($_POST['en_prestamo']);
     
             $libro->getId() > 0 ?
             $this->libro->actualizar($libro) :

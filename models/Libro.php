@@ -169,9 +169,7 @@ class Libro {
                 Genero=?,
                 Autor=?,
                 Editorial=?,
-                Descripcion=?,
-                EnPrestamo=?,
-                Activo=?
+                Descripcion=?
                 WHERE Id=?;
             ";
             $this->pdo->prepare($consulta)
@@ -181,8 +179,6 @@ class Libro {
                         $libro->getAutor(),
                         $libro->getEditorial(),
                         $libro->getDescripcion(),
-                        $libro->getEnPrestamo(),
-                        $libro->getActivo(),
                         $libro->getId()
                     ));
         }catch(Exception $e){
