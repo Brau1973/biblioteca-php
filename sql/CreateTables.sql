@@ -9,7 +9,6 @@ CREATE TABLE libros (
     Activo BOOLEAN DEFAULT true
 );
 
-
 CREATE TABLE usuarios (
   `IdUsuario` INT NOT NULL AUTO_INCREMENT,
   `Usuario` VARCHAR(45) NOT NULL,

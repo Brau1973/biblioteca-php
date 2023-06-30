@@ -104,6 +104,7 @@ class Usuario
                             $usuario->getNombre(),
                             $usuario->getImagen()
                             ));
+                $_SESSION['exito'] = "Alta de usuario exitosa.";
             }catch(Exception $e){
                 die($e->getMessage());
             }
@@ -116,6 +117,7 @@ class Usuario
                             $usuario->getContrasena(),
                             $usuario->getNombre()
                             ));
+                $_SESSION['exito'] = "Alta de usuario exitosa.";
             }catch(Exception $e){
                 die($e->getMessage());
             }
@@ -181,6 +183,7 @@ class Usuario
                             $usuario->getImagen(),
                             $usuario->getIdUsuario()
                             ));
+                $_SESSION['exito'] = "Modificación de datos exitosa.";
             }catch(Exception $e){
                 die($e->getMessage());
             }
@@ -197,6 +200,7 @@ class Usuario
                             $usuario->getNombre(),
                             $usuario->getIdUsuario()
                             ));
+                $_SESSION['exito'] = "Modificación de datos exitosa.";
             }catch(Exception $e){
                 die($e->getMessage());
             }

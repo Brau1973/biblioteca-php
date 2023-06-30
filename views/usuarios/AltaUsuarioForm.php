@@ -1,3 +1,50 @@
+<?php
+  $mensaje = '';
+  if (isset($_SESSION['erroruser'])){
+    $mensaje = $_SESSION['erroruser'];
+    unset($_SESSION['erroruser']);
+  }
+  if (isset($_SESSION['errorcontra'])){
+    $mensaje = $_SESSION['errorcontra'];
+    unset($_SESSION['errorcontra']);
+  }
+  if (isset($_SESSION['errornombre'])){
+    $mensaje = $_SESSION['errornombre'];
+    unset($_SESSION['errornombre']);
+  }
+  if (isset($_SESSION['errorimagen'])){
+    $mensaje = $_SESSION['errorimagen'];
+    unset($_SESSION['errorimagen']);
+  }
+  if($mensaje!=''){
+?>
+    <div id="custom-alert">
+      <div class="alert-overlay"></div>
+      <div class="alert-box">
+        <h2>Warning</h2>
+        <p><?= $mensaje ?></p>
+        <button class="close-btn" onclick="closeAlert()">Cerrar</button>
+      </div>
+    </div>
+<?php } 
+
+  $mensajeExito = '';
+  if (isset($_SESSION['exito'])){
+    $mensajeExito = $mensajeExito.$_SESSION['exito'];
+    unset($_SESSION['exito']);
+  }
+  if($mensajeExito!=''){
+?>
+    <div id="custom-alert">
+      <div class="alert-overlay"></div>
+      <div class="alert-box">
+        <h2>Success</h2>
+        <p><?= $mensajeExito ?></p>
+        <button class="close-btn" onclick="closeAlert()">Cerrar</button>
+      </div>
+    </div>
+<?php } ?>
+
 <div class="content-wrapper">
         <div class="page-title">
           <div>

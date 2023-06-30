@@ -1,3 +1,21 @@
+<?php
+  $mensaje = '';
+  if (isset($_SESSION['exito'])){
+    $mensaje = $mensaje.$_SESSION['exito'];
+    unset($_SESSION['exito']);
+  }
+  if($mensaje!=''){
+?>
+    <div id="custom-alert">
+      <div class="alert-overlay"></div>
+      <div class="alert-box">
+        <h2>Success</h2>
+        <p><?= $mensaje ?></p>
+        <button class="close-btn" onclick="closeAlert()">Cerrar</button>
+      </div>
+    </div>
+<?php } ?>
+
 <div class="content-wrapper">
         <div class="page-title">
           <div>

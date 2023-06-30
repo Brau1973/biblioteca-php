@@ -35,16 +35,12 @@ class UsuarioController{
 	public function Guardar() {
 		$validator = new ValidacionUsuario();
 		$user = $validator->test_input($_POST['usuario']);
-		echo $user;
 		$contrasena = $validator->test_input($_POST['contrasena']);
-		echo $contrasena;
 		$nombre = $validator->test_input($_POST['nombre']);
-		echo $nombre;
 		$imagen = "";
 		if (!empty($_POST['imagen'])){
 			$imagen = $validator->test_input($_POST['imagen']);
 		}
-		echo $imagen;
 		$usuario = new Usuario();
 		if(intval($_POST['id']) > 0){
 			if($validator->contraValido($contrasena) && $validator->nombreValido($nombre) 
@@ -56,6 +52,7 @@ class UsuarioController{
 				$usuario->setImagen($imagen);
 				$this->usuario->Actualizar($usuario);
 			}
+			header("location: ?c=Usuario&a=FormCrear");
 		}else{
 			if($validator->usuarioValido($user) && $validator->contraValido($contrasena) 
 				&& $validator->nombreValido($nombre) && $validator->imagenValido($imagen)){
@@ -66,12 +63,9 @@ class UsuarioController{
 				$usuario->setImagen($imagen);
 				$this->usuario->Insertar($usuario);
 			}
+			header("location: ?");
 		}
-		/*$usuario->getIdUsuario() > 0 ?
-		$this->usuario->Actualizar($usuario) :
-		$this->usuario->Insertar($usuario);*/
 
-		header("location: ?");
     }
 
 	public function Login(){
