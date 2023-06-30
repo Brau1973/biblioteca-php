@@ -62,10 +62,16 @@ class LibroController{
         }
     }
 
-    public function borrar() {
-        $this->libro->eliminar($_GET["id"]);
+    public function MarcarInactivo() {
+        $this->libro->EliminarLogico($_GET["id"]);
         header("location: ?c=libro");
     }
+
+    public function MarcarActivo() {
+        $this->libro->AltaLogica($_GET["id"]);
+        header("location: ?c=libro");
+    }
+
 }
 
 ?>

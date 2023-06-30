@@ -10,6 +10,7 @@ class Libro {
     private $editorial;
     private $descripcion;
     private $en_prestamo;
+    private $activo;
 
     //--------------------------- CONSTRUCTORES ---------------------------
     public function __construct() {
@@ -81,10 +82,18 @@ class Libro {
         $this->en_prestamo = $en_prestamo;
     }
 
-    // --------------------------- OTROS METODOS ---------------------------
+    public function getActivo() {
+        return $this->activo;
+    }
+
+    public function setActivo($activo) {
+        $this->activo = $activo;
+    }
+
+    // --------------------------- OTROS MÉTODOS ---------------------------
     public function CountDisponibles(){
         try{
-            $consulta=$this->pdo->prepare("SELECT COUNT(Id) as COUNT FROM libros WHERE EnPrestamo = 0;");
+            $consulta=$this->pdo->prepare("SELECT COUNT(Id) as COUNT FROM libros WHERE EnPrestamo = 0 AND Activo = 1;");
             $consulta->execute();
             return $consulta->fetch(PDO::FETCH_OBJ);
         }catch(Exception $e){
@@ -95,6 +104,16 @@ class Libro {
     public function Listar(){
         try{
             $consulta=$this->pdo->prepare("SELECT * FROM libros;");
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_OBJ);
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function ListarActivos(){
+        try{
+            $consulta=$this->pdo->prepare("SELECT * FROM libros WHERE Activo = 1;");
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_OBJ);
         }catch(Exception $e){
@@ -115,6 +134,7 @@ class Libro {
             $libroAux->setEditorial($r->Editorial);
             $libroAux->setDescripcion($r->Descripcion);
             $libroAux->setEnPrestamo($r->EnPrestamo);
+            $libroAux->setActivo($r->Activo);
 
             return $libroAux;
 
@@ -125,7 +145,7 @@ class Libro {
 
     public function Insertar(Libro $libro){
         try{
-            $consulta="INSERT INTO libros(Id,Nombre,Genero,Autor,Editorial,Descripcion,EnPrestamo) VALUES (?,?,?,?,?,?,?);";
+            $consulta="INSERT INTO libros(Id,Nombre,Genero,Autor,Editorial,Descripcion,EnPrestamo,Activo) VALUES (?,?,?,?,?,?,?,?);";
             $this->pdo->prepare($consulta)
                     ->execute(array(
                         $libro->getId(),
@@ -135,7 +155,8 @@ class Libro {
                         $libro->getEditorial(),
                         $libro->getDescripcion(),
                         0,
-                        ));
+                        1
+                    ));
         }catch(Exception $e){
             die($e->getMessage());
         }
@@ -149,7 +170,8 @@ class Libro {
                 Autor=?,
                 Editorial=?,
                 Descripcion=?,
-                EnPrestamo=?
+                EnPrestamo=?,
+                Activo=?
                 WHERE Id=?;
             ";
             $this->pdo->prepare($consulta)
@@ -160,16 +182,27 @@ class Libro {
                         $libro->getEditorial(),
                         $libro->getDescripcion(),
                         $libro->getEnPrestamo(),
+                        $libro->getActivo(),
                         $libro->getId()
-                        ));
+                    ));
         }catch(Exception $e){
             die($e->getMessage());
         }
     }
 
-    public function Eliminar($id){
+    public function EliminarLogico($id){
         try{
-            $consulta="DELETE FROM libros WHERE Id=?;";
+            $consulta="UPDATE libros SET Activo=0 WHERE Id=?;";
+            $this->pdo->prepare($consulta)
+                    ->execute(array($id));
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function AltaLogica($id){
+        try{
+            $consulta="UPDATE libros SET Activo=1 WHERE Id=?;";
             $this->pdo->prepare($consulta)
                     ->execute(array($id));
         }catch(Exception $e){

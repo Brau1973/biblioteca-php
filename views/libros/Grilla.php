@@ -22,10 +22,18 @@
                 <th>Autor</th>
                 <th>Editorial</th>
                 <th>Disponible?</th>
+                <?PHP if($_SESSION['tipo'] == "administrador"){?>
+                  <th>Activo?</th>
+                <?PHP } ?> 
               </tr>
             </thead>
             <tbody>
-              <?php foreach($this->libro->Listar() as $r):?>
+            <?PHP if($_SESSION['tipo'] == "administrador"){
+              $listadoLibros = $this->libro->Listar(); 
+            }else{ 
+              $listadoLibros = $this->libro->ListarActivos();
+            } ?> 
+              <?php foreach($listadoLibros as $r):?>
               <tr>
                 <td><?=$r->Id?></td>
                 <td><?=$r->Nombre?></td>
@@ -39,10 +47,29 @@
                     No
                   <?php endif; ?>
                 </td>
+                <?PHP if($_SESSION['tipo'] == "administrador"){?>
+                  <td <?php if ($r->Activo == 1): ?>style="background-color: lightgreen;"<?php else: ?>style="background-color: lightcoral;"<?php endif; ?>>
+                      <?php if ($r->Activo == 1): 
+                        $btnClass = "btn btn-warning btn-flat";
+                        $href = "?c=libro&a=MarcarInactivo&id=$r->Id";
+                        $iconClass = "fa fa-lg fa-trash";
+                      ?>
+                          Si
+                      <?php else: 
+                        $btnClass = "btn btn-success btn-flat";
+                        $href = "?c=libro&a=MarcarActivo&id=$r->Id";
+                        $iconClass = "fa fa-lg fa-plus";
+                      ?>
+                          No
+                      <?php endif; ?>
+                  </td>
+                <?PHP }?>
                   <td>  
                     <?PHP if($_SESSION['tipo'] == "administrador"){?>
                       <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>"><i class="fa fa-lg fa-refresh"></i></a>
-                      <a class="btn btn-warning btn-flat" href="?c=libro&a=Borrar&id=<?=$r->Id?>"><i class="fa fa-lg fa-trash"></i></a>
+                      <?php if ($r->EnPrestamo == 0): ?>
+                        <a class="<?php echo $btnClass; ?>" href=<?=$href?>><i class="<?php echo $iconClass; ?>"></i></a>
+                      <?php endif; ?>
                     <?PHP } ?>
                     <?php if ($r->EnPrestamo == 0): ?>
                       <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>"><i class="fa fa-lg fa fa-get-pocket"></i></a>

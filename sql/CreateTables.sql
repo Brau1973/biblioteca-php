@@ -5,8 +5,10 @@ CREATE TABLE libros (
     Autor VARCHAR(255) NOT NULL,
     Editorial VARCHAR(255) NOT NULL,
     Descripcion TEXT,
-    EnPrestamo BOOLEAN DEFAULT false
+    EnPrestamo BOOLEAN DEFAULT false,
+    Activo BOOLEAN DEFAULT true
 );
+
 
 CREATE TABLE IF NOT EXISTS `biblioteca`.`usuarios` (
   `IdUsuario` INT NOT NULL AUTO_INCREMENT,
