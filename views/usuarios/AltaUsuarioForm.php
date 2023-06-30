@@ -73,28 +73,32 @@
 
                               <label class="col-lg-2 control-label" for="usuario">Usuario</label>
                               <div class="col-lg-10">
-                                  <input required class="form-control" name="usuario" type="text" placeholder="Su nombre de usuario" <?php if($titulo == "Modificar") echo "readonly" ?> value="<?=$usuarioAux->getUsuario()?>">
+                                  <input required class="form-control" name="usuario" type="text" title="Mínimo de 8 caracteres, al menos una mayúscula, una minúscula o un número."
+                                   placeholder="Su nombre de usuario" <?php if($titulo == "Modificar") echo "readonly" ?> value="<?=$usuarioAux->getUsuario()?>">
                               </div>
                           </div>
 
                           <div class="form-group">
                               <label class="col-lg-2 control-label" for="contrasena">Contraseña</label>
                               <div class="col-lg-10">
-                                  <input required class="form-control" name="contrasena" type="password" placeholder="Su contraseña" value="<?=$usuarioAux->getContrasena()?>">
+                                  <input required class="form-control" name="contrasena" type="password" title="Mínimo de 8 caracteres, al menos una mayúscula, una minúscula y un número."
+                                   placeholder="Su contraseña" value="<?=$usuarioAux->getContrasena()?>">
                               </div>
                           </div>
 
                           <div class="form-group">
                               <label class="col-lg-2 control-label" for="nombre">Nombre</label>
                               <div class="col-lg-10">
-                                  <input required class="form-control" name="nombre" type="text" placeholder="Su nombre" value="<?=$usuarioAux->getNombre()?>">
+                                  <input required class="form-control" name="nombre" type="text" title="Únicamente letras."
+                                   placeholder="Su nombre" value="<?=$usuarioAux->getNombre()?>">
                               </div>
                           </div>
 
                           <div class="form-group">
                               <label class="col-lg-2 control-label" for="imagen">Imagen</label>
                               <div class="col-lg-10">
-                                  <input class="form-control" name="imagen" type="text" placeholder="Link a su imagen" value="<?=$usuarioAux->getImagen()?>">
+                                  <input class="form-control" name="imagen" type="text" title="Opcional, link a una imagen con extensión .jpg o .png"
+                                   placeholder="Link a su imagen" value="<?=$usuarioAux->getImagen()?>">
                               </div>
                           </div>
 
