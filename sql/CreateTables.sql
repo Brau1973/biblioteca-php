@@ -10,7 +10,7 @@ CREATE TABLE libros (
 );
 
 
-CREATE TABLE IF NOT EXISTS `biblioteca`.`usuarios` (
+CREATE TABLE usuarios (
   `IdUsuario` INT NOT NULL AUTO_INCREMENT,
   `Usuario` VARCHAR(45) NOT NULL,
   `Contrasena` VARCHAR(45) NOT NULL,
@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `biblioteca`.`usuarios` (
   `Tipo` VARCHAR(45) NOT NULL DEFAULT 'cliente',
   PRIMARY KEY (`IdUsuario`),
   UNIQUE INDEX `idusuario_UNIQUE` (`IdUsuario` ASC)
+);
 
 CREATE TABLE prestamos (
   id INT PRIMARY KEY AUTO_INCREMENT,

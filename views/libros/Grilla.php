@@ -5,7 +5,7 @@
     </div>
     <?PHP if($_SESSION['tipo'] == "administrador"){?>
       <div>
-        <a class="btn btn-primary btn-flat" href="?c=libro&a=FormCrear"><i class="fa fa-lg fa-plus"></i></a>
+        <a class="btn btn-primary btn-flat" href="?c=libro&a=FormCrear" title="Crear Libro"><i class="fa fa-lg fa-plus"></i></a>
       </div>
     <?PHP } ?> 
   </div>
@@ -53,12 +53,14 @@
                         $btnClass = "btn btn-warning btn-flat";
                         $href = "?c=libro&a=MarcarInactivo&id=$r->Id";
                         $iconClass = "fa fa-lg fa-trash";
+                        $title = "Marcar Inactivo";
                       ?>
                           Si
                       <?php else: 
                         $btnClass = "btn btn-success btn-flat";
                         $href = "?c=libro&a=MarcarActivo&id=$r->Id";
                         $iconClass = "fa fa-lg fa-plus";
+                        $title = "Marcar Activo";
                       ?>
                           No
                       <?php endif; ?>
@@ -66,13 +68,13 @@
                 <?PHP }?>
                   <td>  
                     <?PHP if($_SESSION['tipo'] == "administrador"){?>
-                      <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>"><i class="fa fa-lg fa-refresh"></i></a>
+                      <a class="btn btn-info btn-flat" href="?c=libro&a=FormCrear&id=<?=$r->Id?>" title="Editar Libro"><i class="fa fa-lg fa-refresh"></i></a>
                       <?php if ($r->EnPrestamo == 0): ?>
-                        <a class="<?php echo $btnClass; ?>" href=<?=$href?>><i class="<?php echo $iconClass; ?>"></i></a>
+                        <a class="<?php echo $btnClass; ?>" href=<?=$href?> title="<?php echo $title; ?>" ><i class="<?php echo $iconClass; ?>"></i></a>
                       <?php endif; ?>
                     <?PHP } ?>
                     <?php if ($r->EnPrestamo == 0): ?>
-                      <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>"><i class="fa fa-lg fa fa-get-pocket"></i></a>
+                      <a class="btn btn-primary btn-flat" href="?c=prestamo&a=NuevoPrestamo&id=<?=$r->Id?>" title="Tomar en Prestamo"><i class="fa fa-lg fa fa-get-pocket"></i></a>
                     <?php endif; ?>
                   </td>
               </tr>

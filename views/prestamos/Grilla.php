@@ -41,7 +41,7 @@
                                     <td><?= $p->estado ?></td>
                                     <?php if ($_SESSION['tipo'] == "cliente" && $p->estado !== 'Devuelto') : ?>
                                         <td style="width: 10px;"> <!-- Columna del botón -->
-                                            <a class="btn btn-primary btn-flat" href="?c=prestamo&a=DevolverPrestamo&idPres=<?=$p->id?>&idLibro=<?=$p->libro_id?>">
+                                            <a class="btn btn-primary btn-flat" title="Devolver Prestamo" href="?c=prestamo&a=DevolverPrestamo&idPres=<?=$p->id?>&idLibro=<?=$p->libro_id?>">
                                                 <i class="fa fa-lg fa fa-get-pocket"></i>
                                             </a>
                                         </td>
